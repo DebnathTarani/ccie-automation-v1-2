@@ -1,0 +1,68 @@
+orb:
+  backends:
+    common:
+      diode:
+        target: grpc://192.168.29.149:8080/diode
+        client_id: ${DIODE_CLIENT_ID}
+        client_secret: ${DIODE_CLIENT_SECRET}
+        agent_name: agent01
+    device_discovery:
+      #host: localhost # default localhost
+      #port: 8857 # default 8072
+      #log_level: ERROR # default INFO
+  
+  policies:
+    device_discovery:
+      discovery_1:
+        credentials: &ios_credentials
+          username: admin
+          password: admin
+          optional_args:
+            enable_password: admin
+        config:
+          defaults:
+            site: LAB
+            tenant: CML
+        scope:
+          - hostname: 192.168.29.20
+            driver: ios
+            override_defaults:
+              role: Router
+              manufacturer: Cisco
+              platform: ios
+            <<: *ios_credentials
+          - hostname: 192.168.29.21
+            driver: ios
+            override_defaults:
+              role: Router
+              manufacturer: Cisco
+              platform: ios
+            <<: *ios_credentials
+          - hostname: 192.168.29.22
+            driver: ios
+            override_defaults:
+              role: Router
+              manufacturer: Cisco
+              platform: ios
+            <<: *ios_credentials
+          - hostname: 192.168.29.23
+            driver: ios
+            override_defaults:
+              role: Switch
+              manufacturer: Cisco
+              platform: ios
+            <<: *ios_credentials
+          - hostname: 192.168.29.24
+            driver: ios
+            override_defaults:
+              role: Switch
+              manufacturer: Cisco
+              platform: ios
+            <<: *ios_credentials
+          - driver: eos
+            hostname: 192.168.29.25
+            override_defaults:
+              role: Switch
+              manufacturer: Arista
+              platform: eos
+            <<: *ios_credentials
